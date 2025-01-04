@@ -17,9 +17,11 @@ import data.model.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private final List<Movie> movieList;
+    private OnClickListener listener;
 
-    public MovieAdapter(List<Movie> movieList) {
+    public MovieAdapter(List<Movie> movieList, OnClickListener listener) {
         this.movieList = movieList;
+        this.listener = listener;
     }
 
     @Override
@@ -37,11 +39,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Glide.with(holder.itemView.getContext())
                 .load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath())
                 .into(holder.posterImageView);
+        holder.itemView.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onClick(position, movie);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return movieList.size();
+    }
+
+    public void submitList(List<Movie> movies) {
+        movieList.clear();
+        movieList.addAll(movies);
+        notifyDataSetChanged();
+    }
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.listener = onClickListener;
+    }
+
+    // Interface for the click listener
+    public interface OnClickListener {
+        void onClick(int position, Movie model);
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
