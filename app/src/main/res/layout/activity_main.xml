@@ -8,44 +8,52 @@
     android:background="#2E3532"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/appTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="32dp"
-        android:background="#2E3532"
-        android:text="Cinequest!!!"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        app:title="CineQuest"
+        app:titleTextColor="@color/white"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#308d46"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/popularTextView"
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="36dp"
-        android:text="Most popular "
-        android:textColor="@color/white"
-        android:textStyle="bold"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mostPopular"
-        android:layout_width="266dp"
-        android:layout_height="629dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="72dp"
-        android:background="#7E9181"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most popular">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </com.google.android.material.tabs.TabItem>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search">
+
+        </com.google.android.material.tabs.TabItem>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bookmarks">
+
+        </com.google.android.material.tabs.TabItem>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </androidx.viewpager2.widget.ViewPager2>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

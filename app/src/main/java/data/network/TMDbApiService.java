@@ -44,6 +44,35 @@ public class TMDbApiService {
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
+    public void searchMovies(Context context, String query, final MovieCallback callback) {
+        String url = BASE_URL + "search/movie?api_key=" + API_KEY + "&query=" + query + "&include_adult=false&language=en-US&page=1";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            callback.onSuccess(results);
+                        } catch (JSONException e) {
+                            callback.onError("Error parsing data: " + e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onError("Error fetching data: " + error.getMessage());
+                    }
+                }
+        );
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    }
+
     public interface MovieCallback {
         void onSuccess(JSONArray movies);
         void onError(String errorMessage);

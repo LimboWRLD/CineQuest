@@ -25,6 +25,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -43,5 +46,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("androidx.room:room-runtime:2.5.0")
+    annotationProcessor ("androidx.room:room-compiler:2.5.0")
 
 }

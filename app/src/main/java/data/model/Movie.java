@@ -2,9 +2,10 @@ package data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private int id;
 
     private String title;
@@ -25,6 +26,17 @@ public class Movie {
     private String releaseDate;
 
     private List<Integer> genreIds;
+
+    public Movie(int movieId, String title, String overview, String posterPath) {
+        this.id = movieId;
+        this.title = title;
+        this.overview = overview;
+        this.posterPath = posterPath;
+    }
+
+    public Movie() {
+
+    }
 
     public int getId() {
         return id;
