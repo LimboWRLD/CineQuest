@@ -3,6 +3,7 @@ package data.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie implements Serializable {
@@ -25,13 +26,15 @@ public class Movie implements Serializable {
     @SerializedName("release_date")
     private String releaseDate;
 
-    private List<Integer> genreIds;
 
-    public Movie(int movieId, String title, String overview, String posterPath) {
+    private ArrayList<String> genres;
+
+    public Movie(int movieId, String title, String overview, String posterPath,  ArrayList<String> genresNew) {
         this.id = movieId;
         this.title = title;
         this.overview = overview;
         this.posterPath = posterPath;
+        this.genres = genresNew;
     }
 
     public Movie() {
@@ -94,11 +97,11 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
+    public ArrayList<String> getGenres() {
+        return genres;
     }
 
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
+    public void setGenres(ArrayList<String> genresNew) {
+        this.genres = genresNew;
     }
 }

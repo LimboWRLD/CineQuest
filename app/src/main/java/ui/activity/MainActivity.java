@@ -1,26 +1,15 @@
-package com.example.cinequest;
+package ui.activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.cinequest.R;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import data.model.Movie;
-import data.model.MoviesViewModel;
-import ui.MovieAdapter;
-import ui.TabAdapter;
+import ui.adapter.TabAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -58,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
 
     }

@@ -36,8 +36,7 @@ public class Rating {
         this.rating = rating;
     }
 
-    public Rating(int id, int movieId, float rating) {
-        this.id = id;
+    public Rating(int movieId, float rating) {
         this.movieId = movieId;
         this.rating = rating;
     }

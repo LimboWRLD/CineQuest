@@ -1,4 +1,4 @@
-package com.example.cinequest;
+package ui.fragment;
 
 import android.os.Bundle;
 
@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinequest.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Movie;
-import data.model.MoviesViewModel;
-import ui.MovieAdapter;
+import viewmodel.MoviesViewModel;
+import ui.adapter.MovieAdapter;
 
 
 public class MovieSearchFragment extends Fragment {
@@ -54,6 +56,7 @@ public class MovieSearchFragment extends Fragment {
             }
         });
 
+
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -73,6 +76,8 @@ public class MovieSearchFragment extends Fragment {
             }
         });
 
+        moviesViewModel.fetchGenres(requireContext());
+
         return view;
     }
 
@@ -82,7 +87,8 @@ public class MovieSearchFragment extends Fragment {
                 movie.getId(),
                 movie.getTitle(),
                 movie.getOverview(),
-                movie.getPosterPath()
+                movie.getPosterPath(),
+                movie.getGenres()
         );
 
         // Use FragmentTransaction to replace the fragment

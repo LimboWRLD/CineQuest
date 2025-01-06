@@ -1,4 +1,4 @@
-package com.example.cinequest;
+package ui.fragment;
 
 import android.os.Bundle;
 
@@ -12,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinequest.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Movie;
-import data.model.MoviesViewModel;
-import ui.MovieAdapter;
+import viewmodel.MoviesViewModel;
+import ui.adapter.MovieAdapter;
 
 public class MostPopular extends Fragment {
 
@@ -32,7 +34,7 @@ public class MostPopular extends Fragment {
         moviesViewModel = new ViewModelProvider(requireActivity()).get(MoviesViewModel.class);
 
 
-        RecyclerView recyclerViewMostPopular = view.findViewById(R.id.mostPopular);
+        RecyclerView recyclerViewMostPopular = view.findViewById(R.id.recommendedList);
         recyclerViewMostPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         movieAdapter = new MovieAdapter(new ArrayList<>(), new MovieAdapter.OnClickListener() {
             @Override
@@ -43,6 +45,13 @@ public class MostPopular extends Fragment {
         });
         recyclerViewMostPopular.setAdapter(movieAdapter);
 
+        moviesViewModel.fetchGenres(requireContext());
+
+        moviesViewModel.getGenres().observe(getViewLifecycleOwner(), genres -> {
+            if (genres != null && !genres.isEmpty()) {
+                moviesViewModel.fetchPopularMovies(requireContext());
+            }
+        });
 
         moviesViewModel.getPopularMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
@@ -51,7 +60,8 @@ public class MostPopular extends Fragment {
             }
         });
 
-        moviesViewModel.fetchPopularMovies(requireContext());
+
+
         return view;
     }
 
@@ -61,7 +71,8 @@ public class MostPopular extends Fragment {
                 movie.getId(),
                 movie.getTitle(),
                 movie.getOverview(),
-                movie.getPosterPath()
+                movie.getPosterPath(),
+                movie.getGenres()
         );
 
         requireActivity().getSupportFragmentManager()

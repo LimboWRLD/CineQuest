@@ -1,4 +1,4 @@
-package data.network;
+package data.api;
 
 import android.content.Context;
 

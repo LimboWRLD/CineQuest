@@ -37,23 +37,38 @@
                 android:id="@+id/moviePoster"
                 android:layout_width="196dp"
                 android:layout_height="207dp"
-                android:layout_marginStart="92dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="104dp"
                 android:contentDescription="movie_poster"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="86dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="86dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
 
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="124dp"
                 android:gravity="center"
                 android:text="Movie Title"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
 
@@ -70,8 +85,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+                app:layout_constraintVertical_bias="0.13" />
 
             <Button
                 android:id="@+id/favoriteButton"
@@ -82,6 +99,46 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="14dp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/movieOverview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+                app:layout_constraintVertical_bias="0.174" />
+
+            <TextView
+                android:id="@+id/recommended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="157dp"
+                android:layout_marginTop="77dp"
+                android:layout_marginEnd="157dp"
+                android:text="Recommended"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favoriteButton" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommendedList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="#212124"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recommended" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

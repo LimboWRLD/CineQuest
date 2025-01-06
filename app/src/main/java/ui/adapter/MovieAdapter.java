@@ -1,4 +1,4 @@
-package ui;
+package ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import com.example.cinequest.R;
 
 import java.util.List;
 
-import data.model.Favorite;
 import data.model.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -56,6 +55,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         movieList.addAll(movies);
         notifyDataSetChanged();
     }
+
     public void setOnClickListener(OnClickListener onClickListener) {
         this.listener = onClickListener;
     }

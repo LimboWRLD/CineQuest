@@ -1,4 +1,4 @@
-package data.network;
+package data.api;
 
 import android.content.Context;
 
@@ -66,6 +66,66 @@ public class TMDbApiService {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         callback.onError("Error fetching data: " + error.getMessage());
+                    }
+                }
+        );
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    }
+
+
+
+    public void getGenres(Context context, final MovieCallback callback) {
+        String url = BASE_URL + "genre/movie/list?api_key=" + API_KEY + "&language=en-US&page=1";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results = response.getJSONArray("genres");
+                            callback.onSuccess(results);
+                        } catch (JSONException e) {
+                            callback.onError(e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onError(error.getMessage());
+                    }
+                }
+        );
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void getRecommendedMovies(Context context, int movieId, MovieCallback callback) {
+        String url = BASE_URL + "movie/" + movieId + "/recommendations?api_key=" + API_KEY + "&language=en-US&page=1";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            callback.onSuccess(results);
+                        } catch (JSONException e) {
+                            callback.onError(e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onError(error.getMessage());
                     }
                 }
         );

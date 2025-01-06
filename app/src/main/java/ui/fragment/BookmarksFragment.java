@@ -1,4 +1,4 @@
-package com.example.cinequest;
+package ui.fragment;
 
 import android.os.Bundle;
 
@@ -12,20 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinequest.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import data.factory.BookmarksViewModelFactory;
+import data.factory.AppViewModelFactory;
 import data.model.Bookmark;
-import data.model.BookmarksViewModel;
-import data.model.Favorite;
+import viewmodel.BookmarksViewModel;
 import data.model.Movie;
-import ui.MovieAdapter;
+import ui.adapter.MovieAdapter;
 
 
 public class BookmarksFragment extends Fragment {
 
-    private BookmarksViewModelFactory factory;
+    private AppViewModelFactory factory;
     private BookmarksViewModel bookmarksViewModel;
 
     @Override
@@ -33,7 +34,7 @@ public class BookmarksFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.fragment_bookmarks, container, false);
-        factory = new BookmarksViewModelFactory(requireActivity().getApplication());
+        factory = new AppViewModelFactory(requireActivity().getApplication());
         bookmarksViewModel = new ViewModelProvider(this,factory).get(BookmarksViewModel.class);
         RecyclerView recyclerView = view.findViewById(R.id.favorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -62,7 +63,8 @@ public class BookmarksFragment extends Fragment {
                 movie.getId(),
                 movie.getTitle(),
                 movie.getOverview(),
-                movie.getPosterPath()
+                movie.getPosterPath(),
+                movie.getGenres()
         );
 
         requireActivity().getSupportFragmentManager()

@@ -1,4 +1,4 @@
-package data.model;
+package viewmodel;
 
 import android.app.Application;
 
@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import data.dao.BookmarksDao;
-import data.dao.FavoritesDao;
 import data.database.AppDatabase;
+import data.model.Bookmark;
 
 public class BookmarksViewModel extends ViewModel {
     private BookmarksDao bookmarksDao;

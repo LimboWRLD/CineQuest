@@ -1,13 +1,13 @@
-package ui;
+package ui.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cinequest.BookmarksFragment;
-import com.example.cinequest.MostPopular;
-import com.example.cinequest.MovieSearchFragment;
+import ui.fragment.BookmarksFragment;
+import ui.fragment.MostPopular;
+import ui.fragment.MovieSearchFragment;
 
 public class TabAdapter extends FragmentStateAdapter {
     public TabAdapter(@NonNull FragmentActivity fragmentActivity) {
