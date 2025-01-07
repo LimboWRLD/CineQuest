@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Movie implements Serializable {
     private int id;
@@ -29,7 +28,7 @@ public class Movie implements Serializable {
 
     private ArrayList<String> genres;
 
-    public Movie(int movieId, String title, String overview, String posterPath,  ArrayList<String> genresNew) {
+    public Movie(int movieId, String title, String overview, String posterPath, ArrayList<String> genresNew) {
         this.id = movieId;
         this.title = title;
         this.overview = overview;

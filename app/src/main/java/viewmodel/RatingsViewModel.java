@@ -29,7 +29,7 @@ public class RatingsViewModel extends ViewModel {
             if (existingRating != null) {
                 rating.setId(existingRating.getId());
                 ratingsDao.updateRating(rating);
-            }else{
+            } else {
                 ratingsDao.insertRating(rating);
             }
         }).start();

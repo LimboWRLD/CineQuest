@@ -19,6 +19,7 @@ import java.util.List;
 
 import data.factory.AppViewModelFactory;
 import data.model.Bookmark;
+import ui.util.FragmentNavigationUtil;
 import viewmodel.BookmarksViewModel;
 import data.model.Movie;
 import ui.adapter.MovieAdapter;
@@ -33,16 +34,16 @@ public class BookmarksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_bookmarks, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmarks, container, false);
         factory = new AppViewModelFactory(requireActivity().getApplication());
-        bookmarksViewModel = new ViewModelProvider(this,factory).get(BookmarksViewModel.class);
+        bookmarksViewModel = new ViewModelProvider(this, factory).get(BookmarksViewModel.class);
         RecyclerView recyclerView = view.findViewById(R.id.favorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<>(), new MovieAdapter.OnClickListener() {
             @Override
             public void onClick(int position, Movie movie) {
 
-                showMovieDetails(movie);
+                FragmentNavigationUtil.showMovieDetails(requireActivity(), movie);
             }
         });
         recyclerView.setAdapter(movieAdapter);
@@ -50,27 +51,11 @@ public class BookmarksFragment extends Fragment {
         bookmarksViewModel.getBookmarks().observe(getViewLifecycleOwner(), (Observer<? super List<Bookmark>>) new Observer<List<Bookmark>>() {
             @Override
             public void onChanged(List<Bookmark> bookmarks) {
-                movieAdapter.submitList(data.mapper.BookmarkToMovieMapper.map(bookmarks));
+                movieAdapter.submitList(data.mappers.BookmarkToMovieMapper.map(bookmarks));
             }
         });
         bookmarksViewModel.getBookmarks();
+
         return view;
-    }
-
-    private void showMovieDetails(Movie movie) {
-
-        MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getOverview(),
-                movie.getPosterPath(),
-                movie.getGenres()
-        );
-
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main, fragment)
-                .addToBackStack(null)
-                .commit();
     }
 }

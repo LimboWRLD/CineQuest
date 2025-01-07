@@ -20,7 +20,7 @@ public interface RatingsDao {
     LiveData<List<Rating>> getAllRatings();
 
     @Query("SELECT * FROM ratings WHERE movieId = :movieId LIMIT 1")
-    LiveData<Rating>  getRatingByMovieId(int movieId);
+    LiveData<Rating> getRatingByMovieId(int movieId);
 
     @Query("SELECT * FROM ratings WHERE movieId = :movieId LIMIT 1")
     Rating getRatingByMovieIdSync(int movieId);

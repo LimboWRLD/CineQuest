@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import ui.fragment.BookmarksFragment;
-import ui.fragment.MostPopular;
+import ui.fragment.MostPopularFragment;
 import ui.fragment.MovieSearchFragment;
 
 public class TabAdapter extends FragmentStateAdapter {
@@ -18,10 +18,10 @@ public class TabAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0: return new MostPopular();
+            case 0: return new MostPopularFragment();
             case 1: return new MovieSearchFragment();
             case 2: return new BookmarksFragment();
-            default: return new MostPopular();
+            default: return new MostPopularFragment();
         }
     }
 

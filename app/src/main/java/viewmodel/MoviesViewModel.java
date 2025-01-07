@@ -52,7 +52,7 @@ public class MoviesViewModel extends ViewModel {
         return searchMovies;
     }
 
-    public LiveData<List<Movie>> getRecommendedMovies(){
+    public LiveData<List<Movie>> getRecommendedMovies() {
         return recommendedMovies;
     }
 
@@ -75,7 +75,7 @@ public class MoviesViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                // Handle error (e.g., show a Toast)
+                System.out.println("Error while fetching recomended movies:" + errorMessage);
             }
         });
     }
@@ -100,16 +100,18 @@ public class MoviesViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                // Handle error (e.g., show a Toast)
+                System.out.println("Error while fetching searched movies:" + errorMessage);
+
             }
         });
     }
+
     public void fetchGenres(Context context) {
         apiService.getGenres(context, new TMDbApiService.MovieCallback() {
 
             @Override
             public void onSuccess(JSONArray genresJSON) {
-                List<Genre > genreList = new ArrayList<>();
+                List<Genre> genreList = new ArrayList<>();
 
                 try {
                     for (int i = 0; i < genresJSON.length(); i++) {
@@ -126,14 +128,13 @@ public class MoviesViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                Log.d("Test",errorMessage);
+                System.out.println("Error while fetching genres:" + errorMessage);
 
-                // Handle error (e.g., show a Toast)
             }
         });
     }
 
-    public void fetchRecommendedMovies(Context context, int movieId){
+    public void fetchRecommendedMovies(Context context, int movieId) {
         apiService.getRecommendedMovies(context, movieId, new TMDbApiService.MovieCallback() {
             @Override
             public void onSuccess(JSONArray movies) {
@@ -152,7 +153,7 @@ public class MoviesViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                Log.d("Error on fetching recommended movies", errorMessage);
+                System.out.println("Error while fetching movies:" + errorMessage);
             }
         });
     }
@@ -166,13 +167,11 @@ public class MoviesViewModel extends ViewModel {
         movie.setOverview(movieJson.getString("overview"));
         movie.setVoteAverage(movieJson.getDouble("vote_average"));
 
-        // Parse genre IDs
         List<Integer> genreIds = new ArrayList<>();
         JSONArray genreIdsArray = movieJson.getJSONArray("genre_ids");
         for (int j = 0; j < genreIdsArray.length(); j++) {
             genreIds.add(genreIdsArray.getInt(j));
         }
-        // Map genre IDs to genre names
         ArrayList<String> genreNames = new ArrayList<>();
         for (Integer genreId : genreIds) {
             String genreName = genreMap.get(genreId);
@@ -180,7 +179,7 @@ public class MoviesViewModel extends ViewModel {
                 genreNames.add(genreName);
             }
         }
-        movie.setGenres(genreNames); // Assuming Movie has a `setGenres` method that accepts a List<String>
+        movie.setGenres(genreNames);
 
         return movie;
     }

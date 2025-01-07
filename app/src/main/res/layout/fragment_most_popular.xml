@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.fragment.MostPopular">
+    tools:context="ui.fragment.MostPopularFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -24,7 +24,7 @@
         android:id="@+id/recommendedList"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="40dp"
         android:background="#212124"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Movie;
+import ui.util.FragmentNavigationUtil;
 import viewmodel.MoviesViewModel;
 import ui.adapter.MovieAdapter;
 
@@ -30,25 +31,20 @@ public class MovieSearchFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_search, container, false);
 
-        // Initialize ViewModel
         moviesViewModel = new ViewModelProvider(requireActivity()).get(MoviesViewModel.class);
 
-        // Set up RecyclerView
         RecyclerView recyclerViewMostPopular = view.findViewById(R.id.recyclerView);
         recyclerViewMostPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         movieAdapter = new MovieAdapter(new ArrayList<>(), new MovieAdapter.OnClickListener() {
             @Override
             public void onClick(int position, Movie movie) {
-                // Handle the click on a movie
-                showMovieDetails(movie);
+                FragmentNavigationUtil.showMovieDetails(requireActivity(), movie);
             }
         });
         recyclerViewMostPopular.setAdapter(movieAdapter);
 
-        // Observe LiveData for popular movies
         moviesViewModel.getSearchMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
@@ -61,7 +57,6 @@ public class MovieSearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Optionally handle search submit
                 return false;
             }
 
@@ -79,23 +74,5 @@ public class MovieSearchFragment extends Fragment {
         moviesViewModel.fetchGenres(requireContext());
 
         return view;
-    }
-
-    private void showMovieDetails(Movie movie) {
-        // Replace the current fragment with MovieDetailsFragment and pass movie data
-        MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getOverview(),
-                movie.getPosterPath(),
-                movie.getGenres()
-        );
-
-        // Use FragmentTransaction to replace the fragment
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main, fragment)  // Assuming 'main' is the container in your layout
-                .addToBackStack(null)  // Optional: To allow navigating back
-                .commit();
     }
 }

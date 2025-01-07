@@ -74,7 +74,6 @@ public class TMDbApiService {
     }
 
 
-
     public void getGenres(Context context, final MovieCallback callback) {
         String url = BASE_URL + "genre/movie/list?api_key=" + API_KEY + "&language=en-US&page=1";
 
@@ -135,6 +134,7 @@ public class TMDbApiService {
 
     public interface MovieCallback {
         void onSuccess(JSONArray movies);
+
         void onError(String errorMessage);
     }
 }

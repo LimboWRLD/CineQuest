@@ -60,20 +60,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.listener = onClickListener;
     }
 
-    // Interface for the click listener
     public interface OnClickListener {
         void onClick(int position, Movie model);
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
-        TextView voteAverageTextView;
         ImageView posterImageView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.movie_title);
-            voteAverageTextView = itemView.findViewById(R.id.movie_vote_average);
             posterImageView = itemView.findViewById(R.id.movie_poster);
         }
     }

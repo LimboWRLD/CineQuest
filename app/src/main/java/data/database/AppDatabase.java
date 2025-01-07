@@ -18,6 +18,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
     public abstract BookmarksDao bookmarksDao();
+
     public abstract RatingsDao ratingsDao();
 
 

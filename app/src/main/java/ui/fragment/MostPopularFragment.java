@@ -18,10 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Movie;
+import ui.util.FragmentNavigationUtil;
 import viewmodel.MoviesViewModel;
 import ui.adapter.MovieAdapter;
 
-public class MostPopular extends Fragment {
+public class MostPopularFragment extends Fragment {
 
     private MoviesViewModel moviesViewModel;
     private MovieAdapter movieAdapter;
@@ -39,8 +40,7 @@ public class MostPopular extends Fragment {
         movieAdapter = new MovieAdapter(new ArrayList<>(), new MovieAdapter.OnClickListener() {
             @Override
             public void onClick(int position, Movie movie) {
-
-                showMovieDetails(movie);
+                FragmentNavigationUtil.showMovieDetails(requireActivity(), movie);
             }
         });
         recyclerViewMostPopular.setAdapter(movieAdapter);
@@ -61,24 +61,6 @@ public class MostPopular extends Fragment {
         });
 
 
-
         return view;
-    }
-
-    private void showMovieDetails(Movie movie) {
-
-        MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getOverview(),
-                movie.getPosterPath(),
-                movie.getGenres()
-        );
-
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main, fragment)
-                .addToBackStack(null)
-                .commit();
     }
 }

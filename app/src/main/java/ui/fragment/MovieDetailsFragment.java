@@ -1,7 +1,6 @@
 package ui.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,27 +25,29 @@ import java.util.List;
 
 import data.factory.AppViewModelFactory;
 import data.model.Bookmark;
-import viewmodel.BookmarksViewModel;
 import data.model.Movie;
-import viewmodel.MoviesViewModel;
 import data.model.Rating;
-import viewmodel.RatingsViewModel;
 import ui.adapter.MovieAdapter;
+import ui.util.FragmentNavigationUtil;
+import viewmodel.BookmarksViewModel;
+import viewmodel.MoviesViewModel;
+import viewmodel.RatingsViewModel;
 
 public class MovieDetailsFragment extends Fragment {
     private static final String ARG_MOVIE_ID = "movie_id";
     private static final String ARG_MOVIE_TITLE = "movie_title";
     private static final String ARG_MOVIE_OVERVIEW = "movie_overview";
     private static final String ARG_MOVIE_POSTER = "movie_poster";
+    private static final String ARG_MOVIE_GENRES = "genres";
 
-    public static MovieDetailsFragment newInstance(int movieId,String title, String overview, String posterPath, ArrayList<String> genresNew) {
+    public static MovieDetailsFragment newInstance(int movieId, String title, String overview, String posterPath, ArrayList<String> genresNew) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_MOVIE_ID, movieId);
         args.putString(ARG_MOVIE_TITLE, title);
         args.putString(ARG_MOVIE_OVERVIEW, overview);
         args.putString(ARG_MOVIE_POSTER, posterPath);
-        args.putStringArrayList("genres", genresNew);
+        args.putStringArrayList(ARG_MOVIE_GENRES, genresNew);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,8 +82,7 @@ public class MovieDetailsFragment extends Fragment {
             String title = getArguments().getString(ARG_MOVIE_TITLE);
             String overview = getArguments().getString(ARG_MOVIE_OVERVIEW);
             String posterPath = getArguments().getString(ARG_MOVIE_POSTER);
-            Log.d("MovieId", String.valueOf(movieId));
-            ArrayList<String> genres = getArguments().getStringArrayList("genres");
+            ArrayList<String> genres = getArguments().getStringArrayList(ARG_MOVIE_GENRES);
             genresTextView.setText(String.join(", ", genres));
             titleTextView.setText(title);
             overviewTextView.setText(overview);
@@ -103,28 +103,25 @@ public class MovieDetailsFragment extends Fragment {
             Button bookmarkBtn = view.findViewById(R.id.favoriteButton);
             bookmarksViewModel.getBookmarkById(movieId).observe(getViewLifecycleOwner(), bookmark -> {
                 if (bookmark == null) {
-                    // Movie is not bookmarked
                     bookmarkBtn.setText("Add Bookmark");
                     bookmarkBtn.setOnClickListener(v -> {
                         Bookmark newBookmark = new Bookmark(movieId, title, posterPath, overview, genres);
                         bookmarksViewModel.addBookmark(newBookmark);
                     });
                 } else {
-                    // Movie is bookmarked
                     bookmarkBtn.setText("Remove Bookmark");
                     bookmarkBtn.setOnClickListener(v -> bookmarksViewModel.deleteBookmark(bookmark));
                 }
             });
             RecyclerView recyclerView = view.findViewById(R.id.recommendedList);
 
-            MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<>(),  new MovieAdapter.OnClickListener() {
+            MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<>(), new MovieAdapter.OnClickListener() {
                 @Override
                 public void onClick(int position, Movie movie) {
-
-                    showMovieDetails(movie);
+                    FragmentNavigationUtil.showMovieDetails(requireActivity(), movie);
                 }
             });
-            MoviesViewModel moviesViewModel =  new ViewModelProvider(requireActivity()).get(MoviesViewModel.class);
+            MoviesViewModel moviesViewModel = new ViewModelProvider(requireActivity()).get(MoviesViewModel.class);
 
             recyclerView.setAdapter(movieAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -138,22 +135,5 @@ public class MovieDetailsFragment extends Fragment {
             moviesViewModel.fetchRecommendedMovies(getContext(), movieId);
 
         }
-    }
-
-    private void showMovieDetails(Movie movie) {
-
-        MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getOverview(),
-                movie.getPosterPath(),
-                movie.getGenres()
-        );
-
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main, fragment)
-                .addToBackStack(null)
-                .commit();
     }
 }

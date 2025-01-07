@@ -1,4 +1,4 @@
-package data.mapper;
+package data.mappers;
 
 import android.util.Log;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class BookmarkToMovieMapper {
 
     public static Movie map(Bookmark bookmark) {
-        Log.d("Poster",  bookmark.getPosterPath());
+        Log.d("Poster", bookmark.getPosterPath());
         return new Movie(
                 bookmark.getMovieId(),
                 bookmark.getTitle(),
