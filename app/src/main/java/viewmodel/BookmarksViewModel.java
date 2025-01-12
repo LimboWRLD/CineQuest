@@ -14,7 +14,6 @@ import data.model.Bookmark;
 public class BookmarksViewModel extends ViewModel {
     private BookmarksDao bookmarksDao;
 
-    private LiveData<Bookmark> bookmarks;
 
     public BookmarksViewModel(Application application) {
         super();

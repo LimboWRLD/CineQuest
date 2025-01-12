@@ -11,7 +11,6 @@ import data.model.Rating;
 
 public class RatingsViewModel extends ViewModel {
     private RatingsDao ratingsDao;
-    private LiveData<Rating> ratingLiveData;
 
     public RatingsViewModel(Application application) {
         super();
